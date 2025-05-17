@@ -1,5 +1,7 @@
 'use strict';
 // Global variables
+const BOMB = '💣';
+const FLAGGED = '🚩';
 var gBoard = [];
 var gLevel = {
   SIZE: 4,
@@ -16,6 +18,7 @@ function onInit() {
   gBoard = [];
   buildBoard();
   setMines(gLevel.MINES);
+  setMinesNegsCount();
 
   renderBoard(gBoard, '.board-container');
 }
@@ -45,4 +48,34 @@ function setMines(noMines) {
       }
     }
   }
+}
+
+function setMinesNegsCount() {
+  for (var i = 0; i < gLevel.SIZE; i++) {
+    for (var j = 0; j < gLevel.SIZE; j++) {
+      if (gBoard[i][j].isMine) continue;
+
+      gBoard[i][j].minesAroundCount = getNegsCount(i, j);
+    }
+  }
+}
+
+function getNegsCount(row, col) {
+  var count = 0;
+
+  for (var i = row - 1; i < row + 2; i++) {
+    for (var j = col - 1; j < col + 2; j++) {
+      if (i < 0 || j < 0 || i >= gLevel.SIZE || j >= gLevel.SIZE) continue;
+
+      // I don't skip my own position because i am 100% not a mine
+      if (gBoard[i][j].isMine) count++;
+    }
+  }
+
+  return count;
+}
+
+function onCellClicked(elCell, i, j) {
+  if (gBoard[i][j].isMine) elCell.innerText = '💣';
+  else elCell.innerText = gBoard[i][j].minesAroundCount;
 }
