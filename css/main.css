@@ -1,6 +1,12 @@
+body{
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
 table {
-	margin: 100px auto;
+	margin: auto;
 	border: 1px solid lightgray;
+	
 }
 
 .cell {
@@ -8,14 +14,93 @@ table {
 	height: 40px;
 	font-size: 1.5em;
     background-color: gray;
-	color:black;
 	text-align:center;
 }
-
 
 .footer {
 	text-align:center;
 	position: absolute;
     bottom: 30px;
     width: 100%;
+}
+
+.buttons {
+	display: flex;
+	width: 300px;
+	justify-content:space-evenly;
+	margin-top: 30px
+}
+.gameHeader{
+	
+	margin-bottom:0;
+	width: 250px;
+	height: 50px;
+	background-color: gray;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	
+	
+}
+.gameHeader button{
+	width: 50px;
+    height: 50px;
+}
+	
+
+h3 {
+	background-color: black;
+	width: 100px;
+	
+	color: red;
+	font-family: Arial, Helvetica, sans-serif;
+	text-align: center;
+}
+
+.marked {
+	background-color: aqua;
+}
+
+.revealed {
+	background-color: lightgray;
+}
+
+.revealed-mine {
+	background-color: red;
+}
+
+.around-0 {
+	color: lightgray;
+}
+
+.around-1 {
+	color: blue;
+}
+
+.around-2 {
+	color: green;
+}
+
+.around-3 {
+	color: red;
+}
+
+.around-4 {
+	color: greenyellow;
+}
+
+.around-5 {
+	color: orange;
+}
+
+.around-6 {
+	color: fuchsia;
+}
+
+.around-7 {
+	color: yellow;
+}
+
+.around-8 {
+	color: purple;
 }
