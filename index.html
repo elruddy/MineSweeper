@@ -9,18 +9,20 @@
   </head>
 
   <body onload="onInit()">
-    <div class="gameHeader">
-      <h3 id="bombsTrys">00</h3>
-      <button id="smilyBtn" onclick="onInit()">😁</button>
-      <h3 id="timer">TIMER</h3>
+    <div>
+      <div class="gameHeader">
+        <h3 id="bombsTrys">00</h3>
+        <button id="smilyBtn" onclick="onInit()">😁</button>
+        <h3 id="timer">0</h3>
+      </div>
+      <div id="lives" class="lives"></div>
+      <div class="board-container"></div>
     </div>
-    <div class="board-container"></div>
     <div class="buttons">
       <button onclick="chosenLevel(this)">Beginner</button>
       <button onclick="chosenLevel(this)">Medium</button>
       <button onclick="chosenLevel(this)">Expert</button>
     </div>
-
     <div class="footer">
       <h2>Lea Guzmicka</h2>
     </div>

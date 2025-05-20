@@ -23,3 +23,8 @@ function revealNoneMineCell(elCell, i, j) {
     expandReveal(i, j);
   }
 }
+
+function updateBombsNumberView(totalNumber) {
+  var elBombsNo = document.getElementById('bombsTrys');
+  elBombsNo.innerText = totalNumber;
+}
