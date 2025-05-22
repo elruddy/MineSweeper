@@ -5,6 +5,8 @@ const FLAGGED = '🚩';
 var gBoard = [];
 var currentTrys;
 var timerInterval;
+var hintUsed;
+var mineLiveInterval;
 var gLevel = {
   SIZE: 4,
   MINES: 2,
@@ -111,6 +113,14 @@ function onCellClicked(elCell, i, j) {
   }
   if (!gGame.isOn || gBoard[i][j].isMarked || gBoard[i][j].isRevealed) return;
 
+  if (hintUsed) {
+    // reveal the surroundings
+    revealSurroundings(i, j);
+    hintUsed.remove();
+    hintUsed = null;
+    return;
+  }
+
   if (!timerInterval) timerInterval = setInterval(updateTimer, 1000);
 
   if (gBoard[i][j].isMine) mineClicked(elCell);
@@ -148,7 +158,7 @@ function mineClicked(elCell) {
     gGame.livesLost++;
     printLives();
 
-    setTimeout(() => {
+    mineLiveInterval = setTimeout(() => {
       elCell.classList.remove('revealed-mine');
       elCell.innerText = '';
     }, 1000);
@@ -218,6 +228,7 @@ function gameOver(emoji) {
   smilyButton.innerText = emoji;
   gGame.isOn = false;
   clearInterval(timerInterval);
+  clearInterval(mineLiveInterval);
 }
 
 function checkVictory() {
@@ -245,4 +256,42 @@ function printLives() {
   }
 
   lifePlaceHolder.innerText = text;
+}
+
+function hintClicked(elHint) {
+  elHint.style.backgroundColor = 'yellow';
+  hintUsed = elHint;
+}
+
+function revealSurroundings(row, col) {
+  for (var i = row - 1; i < row + 2; i++) {
+    for (var j = col - 1; j < col + 2; j++) {
+      if (i < 0 || j < 0 || i >= gLevel.SIZE || j >= gLevel.SIZE) continue;
+      if (gBoard[i][j].isRevealed) continue;
+
+      var currCell = document.getElementById(`cell-${i}-${j}`);
+
+      if (gBoard[i][j].isMine) {
+        currCell.classList.add('revealed-mine');
+        currCell.innerText = BOMB;
+      } else {
+        currCell.classList.add(`around-${gBoard[i][j].minesAroundCount}`);
+        currCell.classList.add('revealed');
+        currCell.innerText = gBoard[i][j].minesAroundCount;
+      }
+
+      removeHintedSurroundings(i, j, currCell);
+    }
+  }
+}
+
+function removeHintedSurroundings(i, j, celElement) {
+  setTimeout(() => {
+    celElement.classList.remove('revealed-mine');
+    celElement.classList.remove(`around-${gBoard[i][j].minesAroundCount}`);
+    celElement.classList.remove('revealed');
+    celElement.innerText = '';
+
+    if (gBoard[i][j].isMarked) celElement.innerText = FLAGGED;
+  }, 1500);
 }
