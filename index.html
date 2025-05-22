@@ -16,6 +16,26 @@
         <h3 id="timer">0</h3>
       </div>
       <div id="lives" class="lives"></div>
+      <div class="hints-container">
+        <img
+          onclick="hintClicked(this)"
+          class="hints"
+          id="hint1"
+          src="./img/lightbulb.png"
+        />
+        <img
+          onclick="hintClicked(this)"
+          class="hints"
+          id="hint2"
+          src="./img/lightbulb.png"
+        />
+        <img
+          onclick="hintClicked(this)"
+          class="hints"
+          id="hint3"
+          src="./img/lightbulb.png"
+        />
+      </div>
       <div class="board-container"></div>
     </div>
     <div class="buttons">
@@ -23,6 +43,7 @@
       <button onclick="chosenLevel(this)">Medium</button>
       <button onclick="chosenLevel(this)">Expert</button>
     </div>
+
     <div class="footer">
       <h2>Lea Guzmicka</h2>
     </div>
