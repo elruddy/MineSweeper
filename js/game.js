@@ -312,5 +312,5 @@ function renderTopScore() {
     elTopScore.innerText = `No top score yet`;
     return;
   }
-  elTopScore.innerText = `Top score for level ${gLevel.NAME}: ${topScore}seconds`;
+  elTopScore.innerText = `Top score for level ${gLevel.NAME}: ${topScore} seconds`;
 }
