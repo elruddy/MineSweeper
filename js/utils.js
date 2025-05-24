@@ -67,7 +67,6 @@ function setTopScoreIfNeeded(time, level) {
 
 function getTopScore(level) {
   var bestTime = localStorage.getItem(`top-score-${level}`);
-  console.log({ bestTime });
   if (bestTime) return Number(bestTime);
 
   return null;
