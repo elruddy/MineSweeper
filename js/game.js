@@ -11,6 +11,7 @@ var gLevel = {
   SIZE: 4,
   MINES: 2,
   HEARTS: 1,
+  NAME: 'Beginner',
 };
 var gGame = {
   isOn: false,
@@ -38,6 +39,8 @@ function onInit() {
   updateBombsNumberView(gLevel.MINES);
   resetTimer();
   printLives();
+  renderHints();
+  renderTopScore();
 }
 
 function resetTimer() {
@@ -208,16 +211,19 @@ function chosenLevel(elButton) {
     gLevel.SIZE = 4;
     gLevel.MINES = 2;
     gLevel.HEARTS = 1;
+    gLevel.NAME = 'Beginner';
   }
   if (elButton.innerText === 'Medium') {
     gLevel.SIZE = 8;
     gLevel.MINES = 14;
     gLevel.HEARTS = 3;
+    gLevel.NAME = 'Medium';
   }
   if (elButton.innerText === 'Expert') {
     gLevel.SIZE = 12;
     gLevel.MINES = 32;
     gLevel.HEARTS = 3;
+    gLevel.NAME = 'Expert';
   }
 
   onInit();
@@ -234,6 +240,8 @@ function gameOver(emoji) {
 function checkVictory() {
   if (gLevel.SIZE * gLevel.SIZE - gGame.revealedCount === gLevel.MINES) {
     revealAllMines(FLAGGED, 'marked', false);
+    setTopScoreIfNeeded(gGame.secsPassed, gLevel.NAME);
+    renderTopScore();
     gameOver('😎');
   }
 }
@@ -294,4 +302,15 @@ function removeHintedSurroundings(i, j, celElement) {
 
     if (gBoard[i][j].isMarked) celElement.innerText = FLAGGED;
   }, 1500);
+}
+
+function renderTopScore() {
+  var topScore = getTopScore(gLevel.NAME);
+  var elTopScore = document.getElementById('top-score');
+
+  if (!topScore) {
+    elTopScore.innerText = `No top score yet`;
+    return;
+  }
+  elTopScore.innerText = `Top score for level ${gLevel.NAME}: ${topScore}seconds`;
 }
